@@ -303,9 +303,9 @@ Semakin sedikit gerakan dan waktu, semakin tinggi skor.
 
 ## 👥 Kontribusi
 
-Zuhri: Frontend
-Damar: Backend
-Labib: AFK
+1. Zuhri: Frontend
+2. Damar: Backend
+3. Labib: Pembuatan Laporan
 
 ---
 
