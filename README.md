@@ -303,7 +303,9 @@ Semakin sedikit gerakan dan waktu, semakin tinggi skor.
 
 ## 👥 Kontribusi
 
-Proyek ini merupakan proyek mata kuliah. Semua anggota kelompok wajib berkontribusi.
+Zuhri: Frontend
+Damar: Backend
+Labib: AFK
 
 ---
 
