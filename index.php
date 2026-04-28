@@ -86,10 +86,10 @@ footer {
         </div>
 
         <?php if ($user['id']): ?>
-            <a href="dashboard.php" class="btn btn-primary btn-lg">🎮 Main Sekarang</a>
+            <a href="dashboard.php" class="btn btn-primary btn-lg">Main Sekarang</a>
         <?php else: ?>
             <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
-                <a href="register.php" class="btn btn-primary btn-lg">🚀 Daftar Gratis</a>
+                <a href="register.php" class="btn btn-primary btn-lg">Daftar Gratis</a>
                 <a href="login.php" class="btn btn-outline btn-lg">Login</a>
             </div>
         <?php endif; ?>

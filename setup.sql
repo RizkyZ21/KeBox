@@ -56,7 +56,7 @@ GRANT kebox_app_role TO kebox;
 
 -- ============================================================
 -- BAGIAN 2: DROP TABEL LAMA (jika ada)
--- Jalankan sebagai: sqlplus kebox/kebox123@host:1521/orclpdb(sesuaikan dengan service kalian)
+-- Jalankan sebagai: sqlplus kebox/kebox123@localhost:1521/orclpdb(sesuaikan dengan service kalian)
 -- ============================================================
 
 BEGIN EXECUTE IMMEDIATE 'DROP TABLE game_sessions CASCADE CONSTRAINTS'; EXCEPTION WHEN OTHERS THEN NULL; END;

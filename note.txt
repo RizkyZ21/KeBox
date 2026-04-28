@@ -1,0 +1,4 @@
+- menambahkan siapa cepat dia dapat
+- leaderboard
+- tambah kata bahasa inggris
+- backsound(opsional)
