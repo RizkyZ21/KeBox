@@ -35,15 +35,15 @@ CREATE TABLESPACE kebox_idx
     SEGMENT SPACE MANAGEMENT AUTO;
 
 -- 1.3 Buat user Oracle
-CREATE USER kebox IDENTIFIED BY kebox123
+CREATE USER kebox IDENTIFIED BY kebox123    -- pake C## prefix untuk user biasa, nanti jadi C##kebox
     DEFAULT TABLESPACE kebox_tbs
     TEMPORARY TABLESPACE TEMP
     QUOTA UNLIMITED ON kebox_tbs
     QUOTA UNLIMITED ON kebox_idx;
 
 -- 1.4 Buat role
-CREATE ROLE kebox_app_role;
-CREATE ROLE kebox_readonly_role;
+CREATE ROLE kebox_app_role;         -- pake C## prefix untuk role biasa
+CREATE ROLE kebox_readonly_role;    -- ini juga
 
 -- 1.5 Privilege dasar ke user
 GRANT CONNECT, RESOURCE TO kebox;

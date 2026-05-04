@@ -4,11 +4,15 @@ require_once 'includes/db.php';
 requireLogin();
 $user = getCurrentUser();
 
-// Get score stats
+$userId = (int)$user['id'];
+
 $stmt = executeQuery(
-    "SELECT game_type, COUNT(*) AS total_games, MAX(score) AS best_score FROM scores WHERE user_id=:uid GROUP BY game_type",
-    [':uid' => $user['id']]
+    "SELECT game_type, COUNT(*) AS total_games, MAX(score) AS best_score 
+     FROM scores 
+     WHERE user_id = $userId 
+     GROUP BY game_type"
 );
+
 $stats = fetchAll($stmt);
 $statsMap = [];
 foreach ($stats as $s) $statsMap[$s['game_type']] = $s;

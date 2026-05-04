@@ -4,14 +4,18 @@ require_once '../includes/db.php';
 requireLogin();
 $user = getCurrentUser();
 
-$stmt  = executeQuery("SELECT id, level_num, grid_size, label FROM puzzle_levels ORDER BY level_num");
+$stmt  = executeQuery("SELECT id, level_num, grid_size FROM puzzle_levels ORDER BY level_num");
 $levels = fetchAll($stmt);
 
-// Fallback levels if DB empty
 if (empty($levels)) {
     $grids = [3,3,4,4,4,5,5,6,7,8];
     foreach ($grids as $i => $g) {
-        $levels[] = ['id'=>$i+1,'level_num'=>$i+1,'grid_size'=>$g,'label'=>"Level ".($i+1)." ({$g}x{$g})"];
+        $levels[] = [
+            'id'=>$i+1,
+            'level_num'=>$i+1,
+            'grid_size'=>$g,
+            'label'=>"Level ".($i+1)." ({$g}x{$g})"
+        ];
     }
 }
 ?>

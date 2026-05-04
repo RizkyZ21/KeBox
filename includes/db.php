@@ -2,8 +2,8 @@
 // Oracle Database Configuration
 define('DB_HOST', 'localhost');
 define('DB_PORT', '1521');
-define('DB_SERVICE', 'ORCLPDB'); // Change to your Oracle service name
-define('DB_USER', 'kebox');
+define('DB_SERVICE', 'ORCL'); // sesuaikan dengan nama service database
+define('DB_USER', 'C##kebox');
 define('DB_PASS', 'kebox123');
 
 function getDB() {
@@ -22,10 +22,17 @@ function getDB() {
 function executeQuery($sql, $params = []) {
     $conn = getDB();
     $stmt = oci_parse($conn, $sql);
+
     foreach ($params as $key => $value) {
-        oci_bind_by_name($stmt, $key, $params[$key]);
+        $paramName = (strpos($key, ':') === 0) ? $key : ':' . $key;
+        oci_bind_by_name($stmt, $paramName, $params[$key]);
     }
-    oci_execute($stmt);
+
+    if (!oci_execute($stmt)) {
+        $e = oci_error($stmt);
+        die("Query Error: " . $e['message']);
+    }
+
     return $stmt;
 }
 

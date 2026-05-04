@@ -3,38 +3,55 @@ require_once '../includes/auth.php';
 require_once '../includes/db.php';
 requireAdmin();
 
-$msg = ''; $error = '';
+$msg = '';
+$error = '';
 $action = $_POST['action'] ?? $_GET['action'] ?? '';
 
+// ================= DELETE =================
 if ($action === 'delete' && isset($_GET['id'])) {
-    executeQuery("DELETE FROM puzzle_levels WHERE id=:id", [':id'=>(int)$_GET['id']]);
+    executeQuery("DELETE FROM puzzle_levels WHERE id=:id", [
+        'id' => (int)$_GET['id']
+    ]);
     $msg = 'Level berhasil dihapus.';
 }
 
+// ================= ADD =================
 if ($action === 'add' && $_SERVER['REQUEST_METHOD']==='POST') {
     $levelNum = (int)($_POST['level_num'] ?? 0);
     $gridSize = (int)($_POST['grid_size'] ?? 0);
-    $label    = trim($_POST['label'] ?? "Level {$levelNum} ({$gridSize}x{$gridSize})");
+    $label    = trim($_POST['label'] ?? "");
 
     if ($levelNum < 1 || $levelNum > 50) {
         $error = 'Nomor level harus antara 1-50.';
     } elseif ($gridSize < 2 || $gridSize > 10) {
         $error = 'Ukuran grid harus antara 2x2 sampai 10x10.';
     } else {
-        $stmt = executeQuery("SELECT id FROM puzzle_levels WHERE level_num=:n", [':n'=>$levelNum]);
+        $stmt = executeQuery("SELECT id FROM puzzle_levels WHERE level_num=:n", [
+            'n' => $levelNum
+        ]);
+
         if (fetchOne($stmt)) {
             $error = "Level nomor {$levelNum} sudah ada.";
         } else {
-            if (!$label) $label = "Level {$levelNum} ({$gridSize}x{$gridSize})";
+            if (!$label) {
+                $label = "Level {$levelNum} ({$gridSize}x{$gridSize})";
+            }
+
             executeQuery(
                 "INSERT INTO puzzle_levels (level_num, grid_size, label) VALUES (:n, :g, :l)",
-                [':n'=>$levelNum, ':g'=>$gridSize, ':l'=>$label]
+                [
+                    'n' => $levelNum,
+                    'g' => $gridSize,
+                    'l' => $label
+                ]
             );
-            $msg = "Level {$levelNum} ({$gridSize}x{$gridSize}) berhasil ditambahkan!";
+
+            $msg = "Level berhasil ditambahkan!";
         }
     }
 }
 
+// ================= EDIT =================
 if ($action === 'edit' && $_SERVER['REQUEST_METHOD']==='POST') {
     $id       = (int)($_POST['id'] ?? 0);
     $levelNum = (int)($_POST['level_num'] ?? 0);
@@ -44,21 +61,34 @@ if ($action === 'edit' && $_SERVER['REQUEST_METHOD']==='POST') {
     if ($gridSize < 2 || $gridSize > 10) {
         $error = 'Ukuran grid harus antara 2-10.';
     } else {
-        if (!$label) $label = "Level {$levelNum} ({$gridSize}x{$gridSize})";
+        if (!$label) {
+            $label = "Level {$levelNum} ({$gridSize}x{$gridSize})";
+        }
+
         executeQuery(
             "UPDATE puzzle_levels SET level_num=:n, grid_size=:g, label=:l WHERE id=:id",
-            [':n'=>$levelNum, ':g'=>$gridSize, ':l'=>$label, ':id'=>$id]
+            [
+                'n' => $levelNum,
+                'g' => $gridSize,
+                'l' => $label,
+                'id' => $id
+            ]
         );
+
         $msg = 'Level berhasil diupdate.';
     }
 }
 
+// ================= GET EDIT =================
 $editLevel = null;
 if (($_GET['action'] ?? '') === 'edit' && isset($_GET['id'])) {
-    $stmt = executeQuery("SELECT * FROM puzzle_levels WHERE id=:id", [':id'=>(int)$_GET['id']]);
+    $stmt = executeQuery("SELECT * FROM puzzle_levels WHERE id=:id", [
+        'id' => (int)$_GET['id']
+    ]);
     $editLevel = fetchOne($stmt);
 }
 
+// ================= GET ALL =================
 $stmt   = executeQuery("SELECT * FROM puzzle_levels ORDER BY level_num");
 $levels = fetchAll($stmt);
 ?>
@@ -179,7 +209,10 @@ $levels = fetchAll($stmt);
                     </div>
                     <div class="form-group">
                         <label class="form-label">Label</label>
-                        <input type="text" name="label" class="form-control" value="<?= htmlspecialchars($editLevel['label']) ?>">
+                        <input type="text" name="label" class="form-control" <?php 
+                        $editLabel = $editLevel['label'] ?? "Level {$editLevel['level_num']} ({$editLevel['grid_size']}x{$editLevel['grid_size']})";
+                        ?>
+                        value="<?= htmlspecialchars($editLabel) ?>">
                     </div>
                 </div>
                 <div style="display:flex;gap:1rem">
@@ -204,7 +237,10 @@ $levels = fetchAll($stmt);
                 ?>
                 <tr>
                     <td style="color:var(--text-muted)"><?= (int)$lv['id'] ?></td>
-                    <td><strong><?= htmlspecialchars($lv['label']) ?></strong></td>
+                    <?php
+                    $label = $lv['label'] ?? "Level {$lv['level_num']} ({$lv['grid_size']}x{$lv['grid_size']})";
+                    ?>
+                    <td><strong><?= htmlspecialchars($label) ?></strong></td>
                     <td style="font-family:'Orbitron',monospace;color:var(--purple-bright)"><?= $g ?>×<?= $g ?></td>
                     <td style="color:var(--text-dim)"><?= $g*$g-1 ?> tile</td>
                     <td>
