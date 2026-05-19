@@ -5,20 +5,6 @@
 
 ---
 
-## 📋 Daftar Isi
-
-- [Tentang Proyek](#tentang-proyek)
-- [Fitur](#fitur)
-- [Teknologi](#teknologi)
-- [Struktur Folder](#struktur-folder)
-- [Instalasi](#instalasi)
-- [Akun Default](#akun-default)
-- [Cara Bermain](#cara-bermain)
-- [Sistem Skor](#sistem-skor)
-- [Troubleshooting](#troubleshooting)
-
----
-
 ## 📖 Tentang Proyek
 
 **KeBox** adalah platform web game yang dikembangkan menggunakan PHP dan Oracle Database. Platform ini menggabungkan dua jenis permainan populer yang dapat dimainkan secara solo maupun bersama teman secara online melalui sistem kode room.

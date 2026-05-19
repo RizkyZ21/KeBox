@@ -118,6 +118,7 @@ CREATE TABLE puzzle_levels (
     level_num    NUMBER(3)    NOT NULL,
     grid_size    NUMBER(2)    NOT NULL,
     level_label  VARCHAR2(50),
+    label        VARCHAR2(100),
     created_at   DATE         DEFAULT SYSDATE NOT NULL,
     CONSTRAINT pk_puzzle_levels       PRIMARY KEY (id),
     CONSTRAINT uq_puzzle_level_num    UNIQUE (level_num),

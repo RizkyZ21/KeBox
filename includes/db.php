@@ -2,8 +2,8 @@
 // Oracle Database Configuration
 define('DB_HOST', 'localhost');
 define('DB_PORT', '1521');
-define('DB_SERVICE', 'ORCL'); // sesuaikan dengan nama service database
-define('DB_USER', 'C##kebox');
+define('DB_SERVICE', 'ORCLPDB'); // sesuaikan dengan nama service database
+define('DB_USER', 'kebox');
 define('DB_PASS', 'kebox123');
 
 function getDB() {
