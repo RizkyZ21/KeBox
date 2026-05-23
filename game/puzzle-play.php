@@ -2,13 +2,18 @@
 require_once '../includes/auth.php';
 require_once '../includes/db.php';
 requireLogin();
-$levelNum = max(1, min(10, (int)($_GET['level'] ?? 1)));
+$levelNum = max(1, min(99, (int)($_GET['level'] ?? 1)));
 
 $stmt = executeQuery("SELECT * FROM puzzle_levels WHERE level_num=:n", [':n'=>$levelNum]);
 $lv   = fetchOne($stmt);
-$gridSizeMap = [1=>3,2=>3,3=>4,4=>4,5=>4,6=>5,7=>5,8=>6,9=>7,10=>8];
-$gridSize = $lv ? (int)$lv['grid_size'] : $gridSizeMap[$levelNum];
+$gridSizeMap = [1=>2,2=>3,3=>3,4=>4,5=>4,6=>5,7=>5,8=>6,9=>7,10=>8,11=>9,12=>10];
+$gridSize = $lv ? (int)$lv['grid_size'] : ($gridSizeMap[$levelNum] ?? 4);
 $diff = $levelNum <= 3 ? 'easy' : ($levelNum <= 7 ? 'medium' : 'hard');
+
+// Total level tersedia (untuk tombol next level)
+$maxStmt  = executeQuery("SELECT MAX(level_num) AS max_lvl FROM puzzle_levels");
+$maxRow   = fetchOne($maxStmt);
+$maxLevel = $maxRow ? (int)$maxRow['max_lvl'] : 12;
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -81,7 +86,7 @@ $diff = $levelNum <= 3 ? 'easy' : ($levelNum <= 7 ? 'medium' : 'hard');
         </div>
         <div style="display:flex;gap:1rem;justify-content:center">
             <button class="btn btn-primary" onclick="restartGame()">🔄 Main Lagi</button>
-            <?php if ($levelNum < 10): ?>
+            <?php if ($levelNum < $maxLevel): ?>
             <a href="puzzle-mode.php?level=<?= $levelNum+1 ?>" class="btn btn-success">Level <?= $levelNum+1 ?> →</a>
             <?php endif; ?>
             <a href="puzzle-select.php" class="btn btn-outline">Menu</a>
@@ -254,6 +259,7 @@ function showWin() {
     fetch('api-score.php', {
         method: 'POST',
         headers: {'Content-Type':'application/json'},
+        keepalive: true,
         body: JSON.stringify({ game_type:'puzzle', level: LEVEL_LABEL, score, duration: elapsed })
     });
 }

@@ -17,6 +17,7 @@ $user = getCurrentUser();
     <a href="../index.php" class="navbar-brand">Ke<span>Box</span></a>
     <ul class="navbar-nav">
         <li><a href="../dashboard.php">Dashboard</a></li>
+        <li><a href="../profile.php">Profil</a></li>
         <li><a href="../logout.php" class="btn btn-outline btn-sm">Logout</a></li>
     </ul>
 </nav>
