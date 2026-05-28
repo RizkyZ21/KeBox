@@ -61,8 +61,10 @@ footer {
     <ul class="navbar-nav">
         <?php if ($user['id']): ?>
             <li><a href="<?= $user['role']==='admin' ? 'admin/dashboard.php' : 'dashboard.php' ?>">Dashboard</a></li>
+            <li><a href="leaderboard.php">Leaderboard</a></li>
             <li><a href="logout.php" class="btn btn-outline btn-sm">Logout</a></li>
         <?php else: ?>
+            <li><a href="leaderboard.php">Leaderboard</a></li>
             <li><a href="login.php">Login</a></li>
             <li><a href="register.php" class="btn btn-primary btn-sm">Register</a></li>
         <?php endif; ?>

@@ -38,6 +38,7 @@ $maxLevel = $maxRow ? (int)$maxRow['max_lvl'] : 12;
     <a href="../index.php" class="navbar-brand">Ke<span>Box</span></a>
     <ul class="navbar-nav">
         <li><a href="../dashboard.php">Dashboard</a></li>
+        <li><a href="../leaderboard.php">Leaderboard</a></li>
         <li><a href="../logout.php" class="btn btn-outline btn-sm">Logout</a></li>
     </ul>
 </nav>
@@ -63,7 +64,6 @@ $maxLevel = $maxRow ? (int)$maxRow['max_lvl'] : 12;
 
     <div class="text-center mt-3" style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
         <button class="btn btn-outline" onclick="shuffleBoard()">🔀 Acak Ulang</button>
-        <button class="btn btn-outline" onclick="resetBoard()">🔄 Reset</button>
         <a href="puzzle-select.php" class="btn btn-outline">← Pilih Level</a>
     </div>
 
@@ -144,17 +144,6 @@ function shuffleBoard() {
     updateProgress();
 }
 
-function resetBoard() {
-    tiles = [...originalState];
-    emptyIdx = TOTAL - 1;
-    moves = 0; solved = false;
-    if (timerInterval) clearInterval(timerInterval);
-    startTime = null;
-    document.getElementById('elapsed').textContent = '0:00';
-    updateMovesDisplay();
-    renderBoard();
-    updateProgress();
-}
 
 function getNeighbors(idx) {
     const neighbors = [];
