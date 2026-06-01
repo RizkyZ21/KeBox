@@ -78,14 +78,11 @@ $maxLevel = $maxRow ? (int)$maxRow['max_lvl'] : 12;
 </head>
 <body>
 
-<nav class="navbar">
-    <a href="../index.php" class="navbar-brand">Ke<span>Box</span></a>
-    <ul class="navbar-nav">
-        <li><a href="../dashboard.php">Dashboard</a></li>
-        <li><a href="../leaderboard.php">Leaderboard</a></li>
-        <li><a href="../logout.php" class="btn btn-outline btn-sm">Logout</a></li>
-    </ul>
-</nav>
+<?php
+$navActive = 'play';
+$navBase   = '../';
+require_once '../includes/navbar.php';
+?>
 
 <?php if ($is2p): ?>
 <div class="container" style="padding-top:1.5rem;padding-bottom:3rem">
@@ -344,7 +341,7 @@ function showWin() {
     fetch('api-score.php', {
         method: 'POST', keepalive: true,
         headers: {'Content-Type':'application/json'},
-        body: JSON.stringify({ game_type:'puzzle', level: LEVEL_LABEL, score, duration: elapsed })
+        body: JSON.stringify({ game_type:'puzzle', level: LEVEL_LABEL, score, duration: elapsed, moves })
     });
 
     if (typeof IS_2P !== 'undefined' && IS_2P) {
@@ -553,5 +550,7 @@ init2p();
 init();
 <?php endif; ?>
 </script>
+
+<script src="../music.js"></script>
 </body>
 </html>

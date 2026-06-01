@@ -53,12 +53,11 @@ body { display:flex; flex-direction:column; min-height:100vh; }
 </style>
 </head>
 <body>
-<nav class="navbar">
-    <a href="index.php" class="navbar-brand">Ke<span>Box</span></a>
-    <ul class="navbar-nav">
-        <li><a href="login.php" class="btn btn-outline btn-sm">Login</a></li>
-    </ul>
-</nav>
+<?php
+$navActive = '';
+$navBase   = '';
+require_once 'includes/navbar.php';
+?>
 
 <div class="login-wrap">
     <div class="login-box">
@@ -95,5 +94,7 @@ body { display:flex; flex-direction:column; min-height:100vh; }
         </p>
     </div>
 </div>
+
+<script src="music.js"></script>
 </body>
 </html>

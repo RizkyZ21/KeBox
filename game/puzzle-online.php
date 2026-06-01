@@ -17,14 +17,11 @@ $user = getCurrentUser();
 </style>
 </head>
 <body>
-<nav class="navbar">
-    <a href="../index.php" class="navbar-brand">Ke<span>Box</span></a>
-    <ul class="navbar-nav">
-        <li><a href="../dashboard.php">Dashboard</a></li>
-        <li><a href="../leaderboard.php">Leaderboard</a></li>
-        <li><a href="../logout.php" class="btn btn-outline btn-sm">Logout</a></li>
-    </ul>
-</nav>
+<?php
+$navActive = 'play';
+$navBase   = '../';
+require_once '../includes/navbar.php';
+?>
 
 <div class="container-sm" style="padding-top:2.5rem;padding-bottom:3rem">
     <div class="page-header" style="margin-bottom:2rem">
@@ -329,5 +326,7 @@ async function cancelLobby() {
     }
 }
 </script>
+
+<script src="../music.js"></script>
 </body>
 </html>

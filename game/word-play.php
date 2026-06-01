@@ -61,14 +61,11 @@ $c = $config[$level];
 </head>
 <body>
 
-<nav class="navbar">
-    <a href="../index.php" class="navbar-brand">Ke<span>Box</span></a>
-    <ul class="navbar-nav">
-        <li><a href="../dashboard.php">Dashboard</a></li>
-        <li><a href="../leaderboard.php">Leaderboard</a></li>
-        <li><a href="../logout.php" class="btn btn-outline btn-sm">Logout</a></li>
-    </ul>
-</nav>
+<?php
+$navActive = 'play';
+$navBase   = '../';
+require_once '../includes/navbar.php';
+?>
 
 <?php if ($is2p): ?>
 <div class="container" style="padding-top:1.5rem;padding-bottom:3rem">
@@ -360,7 +357,7 @@ function endGame(won, timeout=false) {
 
     fetch('api-score.php', {
         method:'POST', headers:{'Content-Type':'application/json'},
-        body: JSON.stringify({ game_type:'word', level:LEVEL, score, duration:elapsed })
+        body: JSON.stringify({ game_type:'word', level:LEVEL, score, duration:elapsed, attempts: won ? currentRow : 0 })
     });
 
     if (typeof IS_2P !== 'undefined' && IS_2P) {
@@ -588,5 +585,7 @@ init2p();
 init();
 <?php endif; ?>
 </script>
+
+<script src="../music.js"></script>
 </body>
 </html>

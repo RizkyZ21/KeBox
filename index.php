@@ -56,20 +56,11 @@ footer {
 <body>
 
 <!-- NAVBAR -->
-<nav class="navbar">
-    <a href="index.php" class="navbar-brand">Ke<span>Box</span></a>
-    <ul class="navbar-nav">
-        <?php if ($user['id']): ?>
-            <li><a href="<?= $user['role']==='admin' ? 'admin/dashboard.php' : 'dashboard.php' ?>">Dashboard</a></li>
-            <li><a href="leaderboard.php">Leaderboard</a></li>
-            <li><a href="logout.php" class="btn btn-outline btn-sm">Logout</a></li>
-        <?php else: ?>
-            <li><a href="leaderboard.php">Leaderboard</a></li>
-            <li><a href="login.php">Login</a></li>
-            <li><a href="register.php" class="btn btn-primary btn-sm">Register</a></li>
-        <?php endif; ?>
-    </ul>
-</nav>
+<?php
+$navActive = '';
+$navBase   = '';
+require_once 'includes/navbar.php';
+?>
 
 <!-- HERO -->
 <section class="hero">
@@ -154,5 +145,7 @@ footer {
     <strong style="color:var(--purple-bright)">KeBox</strong> &copy; <?= date('Y') ?> — Platform Game Online
 </footer>
 
+
+<script src="music.js"></script>
 </body>
 </html>

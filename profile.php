@@ -221,15 +221,11 @@ function winratePct($wins, $total) {
 </head>
 <body>
 
-<nav class="navbar">
-    <a href="index.php" class="navbar-brand">Ke<span>Box</span></a>
-    <ul class="navbar-nav">
-        <li><a href="dashboard.php">Dashboard</a></li>
-        <li><a href="leaderboard.php">Leaderboard</a></li>
-        <li><a href="profile.php" class="active">Profil</a></li>
-        <li><a href="logout.php" class="btn btn-outline btn-sm">Logout</a></li>
-    </ul>
-</nav>
+<?php
+$navActive = 'profile';
+$navBase   = '';
+require_once 'includes/navbar.php';
+?>
 
 <div class="container" style="padding-top:2rem;padding-bottom:3rem;max-width:860px">
 
@@ -389,5 +385,7 @@ function winratePct($wins, $total) {
     </div>
 
 </div>
+
+<script src="music.js"></script>
 </body>
 </html>
